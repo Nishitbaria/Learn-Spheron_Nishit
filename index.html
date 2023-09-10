@@ -9,6 +9,10 @@
         body {
             text-align: center;
             font-family: Arial, Helvetica, sans-serif;
+            background-image: url('https://images.unsplash.com/photo-1642354984104-90e16a092c47?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1932&q=80');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
         }
 
         .container {
@@ -19,6 +23,7 @@
             border: 1px solid #ccc;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            background-color: rgba(255, 255, 255, 0.9);
         }
 
         h1 {
@@ -76,6 +81,7 @@
     <p id="showMood"></p>
 </div>
 <script src="https://cdn.ethers.io/lib/ethers-5.7.2.umd.min.js" type="application/javascript"></script>
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/canvas-confetti.min.js"></script>
 <script>
     const MoodContractAddress = "0xD235babE97192584A05e537457e40E5285B5Dcce";
     const MoodContractABI = [
@@ -136,9 +142,18 @@
 
     async function getMood() {
         const mood = await MoodContract.getMood();
-
-        document.getElementById("showMood").innerText = `Your Mood: ${mood}`;
+        const showMood = document.getElementById("showMood");
+        showMood.innerText = `Your Mood: ${mood}`;
         console.log(mood);
+
+        // Add confetti effect
+        const confettiSettings = {
+            target: 'showMood',
+            max: 100,
+            size: 1,
+            rotate: true,
+        };
+        confetti(confettiSettings);
     }
 
     async function setMood() {
