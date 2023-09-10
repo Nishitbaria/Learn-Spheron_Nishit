@@ -140,13 +140,7 @@
         });
     });
 
-    async function getMood() {
-        const mood = await MoodContract.getMood();
-        const showMood = document.getElementById("showMood");
-        showMood.innerText = `Your Mood: ${mood}`;
-        console.log(mood);
-
-        // Add confetti effect
+    function showConfetti() {
         const count = 200;
         const defaults = {
             origin: { y: 0.7 },
@@ -186,6 +180,16 @@
             spread: 120,
             startVelocity: 45,
         });
+    }
+
+    async function getMood() {
+        const mood = await MoodContract.getMood();
+        const showMood = document.getElementById("showMood");
+        showMood.innerText = `Your Mood: ${mood}`;
+        console.log(mood);
+
+        // Add confetti effect
+        showConfetti();
     }
 
     async function setMood() {
