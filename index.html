@@ -1,215 +1,292 @@
+<!-- @format -->
+
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/tsparticles-confetti@2.12.0/tsparticles.confetti.bundle.min.js"></script>
+
     <title>Spheron dApp</title>
     <style>
-        body {
-            text-align: center;
-            font-family: Arial, Helvetica, sans-serif;
-            background-image: url('https://images.unsplash.com/photo-1642354984104-90e16a092c47?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1932&q=80');
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
-        }
+      body {
+        text-align: center;
+        font-family: Arial, Helvetica, sans-serif;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        color: white;
+        background-color: black;
+      }
 
-        .container {
-            width: 80%;
-            max-width: 400px;
-            margin: 0 auto;
-            padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-            background-color: rgba(255, 255, 255, 0.9);
-        }
+      .container {
+        width: 80%;
+        max-width: 400px;
+        margin: 0 auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        background-color: rgba(0, 0, 0, 0.9);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+      }
 
-        h1 {
-            font-size: 24px;
-        }
+      h1 {
+        position: relative;
+        text-align: center;
+        font-size: 50px;
+        color: white;
+        font-family: "Megrim", cursive;
+        text-shadow: 0 0 5px #0bf4f3, 0 0 10px #0bf4f3, 0 0 20px #0bf4f3,
+          0 0 40px #0bf4f3, 0 0 80px #0bf4f3;
+      }
 
-        p {
-            font-size: 16px;
-        }
+      .frame {
+        width: 90%;
+        margin: 40px auto;
+        text-align: center;
+      }
+      button {
+        margin: 20px;
+      }
 
-        label {
-            font-size: 18px;
-        }
+      .custom-btn {
+        color: #fff;
+        width: 130px;
+        height: 40px;
+        padding: 10px 25px;
+        font-family: "Lato", sans-serif;
+        font-weight: 500;
+        background: transparent;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        position: relative;
+        display: inline-block;
+      }
 
-        input[type="text"] {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
+      .btn-1 {
+        border: none;
+        background-color: #0bf4f3;
+        box-shadow: 0 0 5px #0bf4f3;
+      }
+      .btn-1:hover {
+        box-shadow: 0 0 10px #0bf4f3, 0 0 20px #0bf4f3, 0 0 20px #fff inset;
+      }
 
-        button {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            background-color: #007bff;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 18px;
-        }
+      p {
+        font-size: 16px;
+      }
 
-        button:hover {
-            background-color: #0056b3;
-        }
+      label {
+        font-size: 18px;
+      }
 
-        #showMood {
-            font-size: 20px;
-            font-weight: bold;
-            margin-top: 20px;
-        }
+      input[type="text"] {
+        width: 100%;
+        padding: 10px;
+        margin: 10px 0;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+      }
 
-        /* Style for the confetti container */
-        #confetti-container {
-            position: relative;
-        }
+      #showMood {
+        font-size: 20px;
+        font-weight: bold;
+        margin-top: 20px;
+      }
 
-        #confetti {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-        }
+      /* Style for the confetti container */
+      #confetti-container {
+        position: relative;
+      }
+
+      #confetti {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+      }
     </style>
     <!-- Include particleground library -->
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-</head>
-<body>
-<div class="container">
-    <h1>Welcome to the Spheron dApp!</h1>
-    <p>Set or get your mood:</p>
-    <label for="mood">Input Mood:</label> <br>
-    <input type="text" id="mood">
-    <br>
-    <button onclick="getMood()">Get Mood</button>
-    <button onclick="setMood()">Set Mood</button>
-    <p id="showMood"></p>
-</div>
-<!-- Create a container for the confetti effect -->
-<div id="confetti-container">
-    <div id="confetti"></div>
-</div>
-<script src="https://cdn.ethers.io/lib/ethers-5.7.2.umd.min.js" type="application/javascript"></script>
-<script>
-    // Your JavaScript code here
+  </head>
+  <body>
+    <div class="container">
+      <h1>Welcome to the Name dApp!</h1>
+      <p>Enter Your Name On Blockchain:</p>
+      <label for="mood">Input Mood:</label> <br />
+      <input type="text" id="mood" />
+      <br />
+      <button class="custom-btn btn-1" id="confettiButton" onclick="getMood()">
+        Get Name
+      </button>
+      <button class="custom-btn btn-1" onclick="setMood()">Set Name</button>
+      <p id="showMood"></p>
+    </div>
+    <!-- Create a container for the confetti effect -->
+    <div id="confetti-container">
+      <div id="confetti"></div>
+    </div>
+    <script
+      src="https://cdn.ethers.io/lib/ethers-5.7.2.umd.min.js"
+      type="application/javascript"
+    ></script>
+    <script>
+      // Your JavaScript code here
 
-    const MoodContractAddress = "0xD235babE97192584A05e537457e40E5285B5Dcce";
-    const MoodContractABI = [
+      const MoodContractAddress = "0xD235babE97192584A05e537457e40E5285B5Dcce";
+      const MoodContractABI = [
         {
-            "inputs": [
-                {
-                    "internalType": "string",
-                    "name": "_mood",
-                    "type": "string",
-                },
-            ],
-            "name": "setMood",
-            "outputs": [],
-            "stateMutability": "nonpayable",
-            "type": "function",
+          inputs: [
+            {
+              internalType: "string",
+              name: "_mood",
+              type: "string",
+            },
+          ],
+          name: "setMood",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
         },
         {
-            "inputs": [],
-            "name": "getMood",
-            "outputs": [
-                {
-                    "internalType": "string",
-                    "name": "",
-                    "type": "string",
-                },
-            ],
-            "stateMutability": "view",
-            "type": "function",
+          inputs: [],
+          name: "getMood",
+          outputs: [
+            {
+              internalType: "string",
+              name: "",
+              type: "string",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
         },
-    ];
+      ];
 
-    let MoodContract = undefined;
-    let signer = undefined;
+      let MoodContract = undefined;
+      let signer = undefined;
 
-    // Creating a Web3Provider instance to connect to the Ethereum blockchain.
-    // It uses the "window.ethereum" object for the connection and specifies the network as "sepolia."
+      // Creating a Web3Provider instance to connect to the Ethereum blockchain.
+      // It uses the "window.ethereum" object for the connection and specifies the network as "sepolia."
 
-    const provider = new ethers.providers.Web3Provider(
+      const provider = new ethers.providers.Web3Provider(
         window.ethereum,
         "sepolia"
-    );
+      );
 
-    // Requesting user's Ethereum account access using the Ethereum provider.
-    provider.send("eth_requestAccounts", []).then(() => {
+      // Requesting user's Ethereum account access using the Ethereum provider.
+      provider.send("eth_requestAccounts", []).then(() => {
         // Once account access is granted, list the available Ethereum accounts.
         provider.listAccounts().then((accounts) => {
-            // Assign the signer (account) to interact with smart contracts.
-            signer = provider.getSigner(accounts[0]);
+          // Assign the signer (account) to interact with smart contracts.
+          signer = provider.getSigner(accounts[0]);
 
-            // Create an instance of the MoodContract to interact with it.
-            MoodContract = new ethers.Contract(
-                MoodContractAddress,
-                MoodContractABI,
-                signer
-            );
+          // Create an instance of the MoodContract to interact with it.
+          MoodContract = new ethers.Contract(
+            MoodContractAddress,
+            MoodContractABI,
+            signer
+          );
         });
-    });
+      });
 
-    function getMood() {
-        MoodContract.getMood().then((mood) => {
+      function getMood() {
+        MoodContract.getMood()
+          .then((mood) => {
             const showMood = document.getElementById("showMood");
             showMood.innerText = `Your Mood: ${mood}`;
             console.log(mood);
 
             // Trigger the confetti effect
             triggerConfetti();
-        }).catch((error) => {
+          })
+          .catch((error) => {
             console.error("Error getting mood:", error);
-        });
-    }
+          });
+      }
 
-    async function setMood() {
+      async function setMood() {
         const mood = document.getElementById("mood").value;
         try {
-            await MoodContract.setMood(mood);
-            alert("Mood set successfully!");
+          await MoodContract.setMood(mood);
+          alert("Mood set successfully!");
         } catch (error) {
-            console.error("Error setting mood:", error);
+          console.error("Error setting mood:", error);
         }
-    }
+      }
 
-    function triggerConfetti() {
-        particlesJS('confetti', {
-            particles: {
-                number: {
-                    value: 100
-                },
-                size: {
-                    value: 3
-                },
-                move: {
-                    direction: 'random',
-                    out_mode: 'out'
-                },
-                line_linked: {
-                    enable: false
-                }
+      function triggerConfetti() {
+        particlesJS("confetti", {
+          particles: {
+            number: {
+              value: 100,
             },
-            interactivity: {
-                events: {
-                    onhover: {
-                        enable: true,
-                        mode: 'repulse'
-                    }
-                }
-            }
+            size: {
+              value: 3,
+            },
+            move: {
+              direction: "random",
+              out_mode: "out",
+            },
+            line_linked: {
+              enable: false,
+            },
+          },
+          interactivity: {
+            events: {
+              onhover: {
+                enable: true,
+                mode: "repulse",
+              },
+            },
+          },
         });
-    }
-</script>
-</body>
+      }
+    </script>
+    <script>
+      const duration = 15 * 1000,
+        animationEnd = Date.now() + duration,
+        defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
+
+      function randomInRange(min, max) {
+        return Math.random() * (max - min) + min;
+      }
+
+      // Function to trigger the confetti effect
+      function triggerConfetti() {
+        const timeLeft = animationEnd - Date.now();
+
+        if (timeLeft <= 0) {
+          return;
+        }
+
+        const particleCount = 50 * (timeLeft / duration);
+
+        // since particles fall down, start a bit higher than random
+        confetti(
+          Object.assign({}, defaults, {
+            particleCount,
+            origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 },
+          })
+        );
+        confetti(
+          Object.assign({}, defaults, {
+            particleCount,
+            origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 },
+          })
+        );
+      }
+
+      // Add a click event listener to the button
+      const confettiButton = document.getElementById("confettiButton");
+      confettiButton.addEventListener("click", triggerConfetti);
+    </script>
+  </body>
 </html>
