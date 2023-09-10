@@ -1,150 +1,150 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Spheron dApp</title>
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      background-image: url('https://images.unsplash.com/photo-1642354984104-90e16a092c47?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1932&q=80');
-      background-size: cover;
-      background-repeat: no-repeat;
-      background-attachment: fixed;
-      background-position: center;
-      font-family: Arial, Helvetica, sans-serif;
-      color: white;
-    }
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spheron dApp</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, Helvetica, sans-serif;
+        }
 
-    .container {
-      width: 80%;
-      margin: 0 auto;
-      padding: 20px;
-      background-color: rgba(0, 0, 0, 0.6);
-      border-radius: 10px;
-      text-align: center;
-    }
+        .container {
+            width: 80%;
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
 
-    h1 {
-      font-size: 2rem;
-    }
+        h1 {
+            font-size: 24px;
+        }
 
-    p {
-      font-size: 1.2rem;
-    }
+        p {
+            font-size: 16px;
+        }
 
-    label {
-      font-size: 1.2rem;
-      display: block;
-      margin-top: 10px;
-    }
+        label {
+            font-size: 18px;
+        }
 
-    input[type="text"] {
-      width: 100%;
-      padding: 10px;
-      font-size: 1rem;
-    }
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
 
-    button {
-      width: 100%;
-      margin: 10px 0;
-      padding: 10px;
-      font-size: 1.2rem;
-      background-color: #007bff;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
+        button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+        }
 
-    button:hover {
-      background-color: #0056b3;
-    }
+        button:hover {
+            background-color: #0056b3;
+        }
 
-    #showMood {
-      font-size: 1.5rem;
-      margin-top: 20px;
-    }
-  </style>
+        #showMood {
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <h1>This is my dApp!</h1>
-    <p>Here we can set or get the mood:</p>
-    <label for="mood">Input Mood:</label> <br />
-    <input type="text" id="mood" />
-
+<div class="container">
+    <h1>Welcome to the Spheron dApp!</h1>
+    <p>Set or get your mood:</p>
+    <label for="mood">Input Mood:</label> <br>
+    <input type="text" id="mood">
+    <br>
     <button onclick="getMood()">Get Mood</button>
     <button onclick="setMood()">Set Mood</button>
     <p id="showMood"></p>
-  </div>
-  <script
-    src="https://cdn.ethers.io/lib/ethers-5.7.2.umd.min.js"
-    type="application/javascript"
-  ></script>
-  <script>
-    const MoodContractAddress = "0x0ed929a5afbca27b795d893934f7253f01b3ad11";
+</div>
+<script src="https://cdn.ethers.io/lib/ethers-5.7.2.umd.min.js" type="application/javascript"></script>
+<script>
+    const MoodContractAddress = "<Place Your Contract Address>";
     const MoodContractABI = [
-      {
-        "inputs": [
-          {
-            "internalType": "string",
-            "name": "_mood",
-            "type": "string",
-          },
-        ],
-        "name": "setMood",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function",
-      },
-      {
-        "inputs": [],
-        "name": "getMood",
-        "outputs": [
-          {
-            "internalType": "string",
-            "name": "",
-            "type": "string",
-          },
-        ],
-        "stateMutability": "view",
-        "type": "function",
-      },
+        {
+            "inputs": [
+                {
+                    "internalType": "string",
+                    "name": "_mood",
+                    "type": "string",
+                },
+            ],
+            "name": "setMood",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function",
+        },
+        {
+            "inputs": [],
+            "name": "getMood",
+            "outputs": [
+                {
+                    "internalType": "string",
+                    "name": "",
+                    "type": "string",
+                },
+            ],
+            "stateMutability": "view",
+            "type": "function",
+        },
     ];
 
     let MoodContract = undefined;
     let signer = undefined;
 
-    const provider = new ethers.providers.Web3Provider(
-      window.ethereum,
-      "sepolia"
-    );
-    provider.send("eth_requestAccounts", []).then(() => {
-      provider.listAccounts().then((accounts) => {
-        signer = provider.getSigner(accounts[0]);
+    // Creating a Web3Provider instance to connect to the Ethereum blockchain.
+    // It uses the "window.ethereum" object for the connection and specifies the network as "sepolia."
 
-        MoodContract = new ethers.Contract(
-          MoodContractAddress,
-          MoodContractABI,
-          signer
-        );
-      });
+    const provider = new ethers.providers.Web3Provider(
+        window.ethereum,
+        "sepolia"
+    );
+
+    // Requesting user's Ethereum account access using the Ethereum provider.
+    provider.send("eth_requestAccounts", []).then(() => {
+        // Once account access is granted, list the available Ethereum accounts.
+        provider.listAccounts().then((accounts) => {
+            // Assign the signer (account) to interact with smart contracts.
+            signer = provider.getSigner(accounts[0]);
+
+            // Create an instance of the MoodContract to interact with it.
+            MoodContract = new ethers.Contract(
+                MoodContractAddress,
+                MoodContractABI,
+                signer
+            );
+        });
     });
 
     async function getMood() {
-      const mood = await MoodContract.getMood();
+        const mood = await MoodContract.getMood();
 
-      document.getElementById("showMood").innerText = `Your Mood: ${mood}`;
-      console.log(mood);
+        document.getElementById("showMood").innerText = `Your Mood: ${mood}`;
+        console.log(mood);
     }
 
     async function setMood() {
-      const mood = document.getElementById("mood").value;
-      await MoodContract.setMood(mood);
+        const mood = document.getElementById("mood").value;
+        await MoodContract.setMood(mood);
     }
-  </script>
+</script>
 </body>
 </html>
